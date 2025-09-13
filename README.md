@@ -27,10 +27,10 @@ ___
 ___
 
 <details>
-    <summary>Entrega 01</summary>
-    [Histórias](https://docs.google.com/document/d/1mw2Fn3mDez4JXTWPMTDLrQdW0luBjPhAeknhJ1G6Cxg/edit?usp=sharing)
-    [Protótipo Lo-Fi](https://www.relume.io/app/project/P2458704_MlmAruUQVw1XfQFeAHkPaG0J7zqlO1hUL94wSCKeIYQ#mode=design)
-    [Screencast]()
+<summary>Entrega 01</summary>
+- [Histórias](https://docs.google.com/document/d/1mw2Fn3mDez4JXTWPMTDLrQdW0luBjPhAeknhJ1G6Cxg/edit?usp=sharing)
+- [Protótipo Lo-Fi](https://www.relume.io/app/project/P2458704_MlmAruUQVw1XfQFeAHkPaG0J7zqlO1hUL94wSCKeIYQ#mode=design)
+- [Screencast]()
 
 </details>
 
