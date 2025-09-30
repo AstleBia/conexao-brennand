@@ -4,6 +4,7 @@ services:
     restart: always
     volumes:
       - db_data:/var/lib/postgresql
+      - ./db-init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     environment:

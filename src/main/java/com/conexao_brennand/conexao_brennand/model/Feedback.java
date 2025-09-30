@@ -12,7 +12,7 @@ public class Feedback {
     private long id;
     private int atendimento;
     private int acessibilidade;
-    private int infraestrutura;
+    private int infra;
     private int seguranca;
     private int limpeza;
     private String comentario;
