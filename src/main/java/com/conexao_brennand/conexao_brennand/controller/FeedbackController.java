@@ -18,10 +18,12 @@ class FeedbackController {
     public List<Feedback> listar(){
         return feedbackService.listarFeedbacks();
     }
+
     @GetMapping("/{feedbackId}")
     public Feedback buscarPorId(@PathVariable long feedbackId){
         return feedbackService.buscarFeedbackId(feedbackId);
     }
+
     @PostMapping
     public Feedback criar(@RequestBody Feedback feedback){
         return feedbackService.criarFeedback(feedback);

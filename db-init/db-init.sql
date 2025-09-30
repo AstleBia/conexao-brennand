@@ -7,3 +7,11 @@ CREATE TABLE feedback (
     limpeza INTEGER NOT NULL,
     comentario VARCHAR(250)
 );
+
+CREATE TABLE usuario(
+    id INTEGER PRIMARY KEY,
+    nome VARCHAR(50),
+    email VARCHAR(30),
+    cidade VARCHAR(30)
+);
+

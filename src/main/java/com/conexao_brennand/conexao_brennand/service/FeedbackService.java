@@ -14,6 +14,7 @@ public class FeedbackService {
     public FeedbackService (FeedbackRepository feedbackRepository){
         this.feedbackRepository = feedbackRepository;
     }
+
     public Feedback criarFeedback(Feedback feedback){
         return feedbackRepository.save(feedback);
     }
