@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.conexao-brennand</groupId>
-	<artifactId>conexao-brennad</artifactId>
+	<artifactId>conexao-brennand</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>conexao-brennad</name>
+	<name>conexao-brennand</name>
 	<description>Projeto Conexao Brennand</description>
 	<url/>
 	<licenses>

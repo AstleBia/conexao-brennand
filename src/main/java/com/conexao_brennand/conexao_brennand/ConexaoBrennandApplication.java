@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConexaoBrennadApplication {
+public class ConexaoBrennandApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ConexaoBrennadApplication.class, args);
+		SpringApplication.run(ConexaoBrennandApplication.class, args);
 	}
 
 }
