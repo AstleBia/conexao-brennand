@@ -1,5 +1,5 @@
 CREATE TABLE feedback (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     atendimento INTEGER NOT NULL,
     acessibilidade INTEGER NOT NULL,
     infra INTEGER NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE feedback (
 );
 
 CREATE TABLE usuario(
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(50),
     email VARCHAR(30),
     cidade VARCHAR(30)
