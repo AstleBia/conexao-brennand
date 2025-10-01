@@ -36,6 +36,12 @@ ___
 
 </details>
 
+<details>
+<summary>Entrega 02</summary>
+
+![Issue tracker](./imgs/issue-tracker.png "Página Issues")
+- [Screencast]()
+</details>
 ___
 
 ### Stack
