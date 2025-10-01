@@ -40,7 +40,7 @@ ___
 <summary>Entrega 02</summary>
 
 ![Issue tracker](./imgs/issue-tracker.png "Página Issues")
-- [Screencast]()
+- [Screencast](https://youtu.be/XOh8VCBBnJ0)
 </details>
 
 ___
