@@ -42,6 +42,7 @@ ___
 ![Issue tracker](./imgs/issue-tracker.png "Página Issues")
 - [Screencast]()
 </details>
+
 ___
 
 ### Stack
