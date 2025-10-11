@@ -76,7 +76,7 @@ const FeedbackPage = () => {
                 Feedback
               </a>
               <a
-                href="/admin"
+                href="/Users/bia/Documents/Codigos/Faculdade/3Periodo/Projeto/conexao-brennand/frontend/src/pages/admin"
                 className="px-6 py-2 text-gray-700 hover:text-[#006240] transition-all duration-300 text-sm tracking-widest uppercase font-light"
               >
                 Admin
