@@ -70,13 +70,13 @@ const FeedbackPage = () => {
                 Início
               </a>
               <a
-                href="/feedback"
+                href="/Users/bia/Documents/Codigos/Faculdade/3Periodo/Projeto/conexao-brennand/frontend/src/pages/Feedback"
                 className="px-6 py-2 bg-[#006240] text-[#f5f1e8] transition-all duration-300 text-sm tracking-widest uppercase font-light"
               >
                 Feedback
               </a>
               <a
-                href="/Users/bia/Documents/Codigos/Faculdade/3Periodo/Projeto/conexao-brennand/frontend/src/pages/admin"
+                href="/Users/bia/Documents/Codigos/Faculdade/3Periodo/Projeto/conexao-brennand/frontend/src/pages/Admin"
                 className="px-6 py-2 text-gray-700 hover:text-[#006240] transition-all duration-300 text-sm tracking-widest uppercase font-light"
               >
                 Admin

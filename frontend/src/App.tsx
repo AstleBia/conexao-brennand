@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import HomePage from './pages/Home';
-import FeedbackPage from './pages/Feedback';
-import AdminPage from './pages/Admin';
+import HomePage from './pages/Home.tsx';
+import FeedbackPage from './pages/Feedback.tsx';
+import AdminPage from './pages/Admin.tsx';
 
 const App = () => {
     const [currentPage, setCurrentPage] = useState('home');
