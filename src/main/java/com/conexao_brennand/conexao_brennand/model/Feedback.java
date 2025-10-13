@@ -34,4 +34,7 @@ public class Feedback {
 
     @Column(length = 250)
     private String comentario;
+
+    @Column(name = "usuario_id")
+    private Long usuarioId;
 }

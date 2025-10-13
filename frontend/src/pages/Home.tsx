@@ -33,7 +33,7 @@ const HomePage = ({ setCurrentPage }: HomePageProps) => {
                   Início
                 </button>
                 <button
-                    onClick={() => setCurrentPage('feedback')}
+                    onClick={() => setCurrentPage('cadastro')}
                     className="px-6 py-2 text-gray-700 hover:text-[#006240] transition-all duration-300 text-sm tracking-widest uppercase font-light"
                 >
                   Feedback
@@ -72,10 +72,10 @@ const HomePage = ({ setCurrentPage }: HomePageProps) => {
               Onde a arte encontra o mar no coração do Recife
             </p>
             <button
-                onClick={() => setCurrentPage('feedback')}
+                onClick={() => setCurrentPage('cadastro')}
                 className="border-2 border-[#f5f1e8] text-[#f5f1e8] px-10 py-4 hover:bg-[#f5f1e8] hover:text-[#006240] transition-all duration-500 tracking-widest text-sm uppercase font-light"
             >
-              Compartilhe Sua Experiência
+              Começar Avaliação
             </button>
           </div>
         </div>
@@ -211,10 +211,10 @@ const HomePage = ({ setCurrentPage }: HomePageProps) => {
               Sua experiência nos ajuda a melhorar continuamente
             </p>
             <button
-                onClick={() => setCurrentPage('feedback')}
+                onClick={() => setCurrentPage('cadastro')}
                 className="border-2 border-[#f5f1e8] text-[#f5f1e8] px-12 py-4 hover:bg-[#f5f1e8] hover:text-[#006240] transition-all duration-500 tracking-widest text-sm uppercase font-light"
             >
-              Deixar Feedback
+              Começar Avaliação
             </button>
           </div>
         </div>

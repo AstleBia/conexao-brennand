@@ -42,7 +42,7 @@ const AdminPage = ({ setCurrentPage }: AdminPageProps) => {
                   Início
                 </button>
                 <button
-                    onClick={() => setCurrentPage('feedback')}
+                    onClick={() => setCurrentPage('cadastro')}
                     className="px-6 py-2 text-gray-400 hover:text-white transition-all duration-300 text-sm tracking-widest uppercase font-light"
                 >
                   Feedback

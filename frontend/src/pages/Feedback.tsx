@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Star, Send } from 'lucide-react';
 
-const FeedbackPage = () => {
+interface FeedbackPageProps {
+  setCurrentPage: (page: string) => void;
+  usuario: any;
+}
+
+const FeedbackPage = ({ setCurrentPage, usuario }: FeedbackPageProps) => {
   const [ratings, setRatings] = useState({
     atendimento: 0,
     acessibilidade: 0,
@@ -9,14 +14,8 @@ const FeedbackPage = () => {
     seguranca: 0,
     limpeza: 0
   });
-  const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    cidade: '',
-    dataNascimento: '',
-    sexo: '',
-    comentario: ''
-  });
+  const [comentario, setComentario] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const StarRating = ({ category, rating, setRating }) => {
     return (
@@ -38,15 +37,60 @@ const FeedbackPage = () => {
     setRatings(prev => ({ ...prev, [category]: value }));
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const handleComentarioChange = (e) => {
+    setComentario(e.target.value);
   };
 
-  const handleSubmitFeedback = () => {
-    console.log('Feedback enviado:', { ...formData, ratings });
-    alert('Obrigado pelo seu feedback! Sua opinião é muito importante para nós.');
-    // Aqui você pode adicionar a lógica para enviar ao backend
+  const handleSubmitFeedback = async () => {
+    if (isSubmitting) return;
+    
+    if (Object.values(ratings).some(rating => rating === 0)) {
+      alert('Por favor, avalie todos os itens.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const feedbackResponse = await fetch('http://localhost:8080/feedbacks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          atendimento: ratings.atendimento,
+          acessibilidade: ratings.acessibilidade,
+          infra: ratings.infraestrutura,
+          seguranca: ratings.seguranca,
+          limpeza: ratings.limpeza,
+          comentario: comentario,
+          usuarioId: usuario.id
+        })
+      });
+
+      if (!feedbackResponse.ok) {
+        throw new Error('Erro ao enviar feedback');
+      }
+
+      alert('Obrigado pelo seu feedback! Sua opinião é muito importante para nós.');
+      
+      // Resetar formulário
+      setComentario('');
+      setRatings({
+        atendimento: 0,
+        acessibilidade: 0,
+        infraestrutura: 0,
+        seguranca: 0,
+        limpeza: 0
+      });
+      setCurrentPage('home');
+
+    } catch (error) {
+      console.error('Erro ao enviar feedback:', error);
+      alert('Ocorreu um erro ao enviar seu feedback. Por favor, tente novamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -63,24 +107,25 @@ const FeedbackPage = () => {
             </a>
             
             <div className="flex gap-1">
-              <a
-                href="/"
+              <button
+                onClick={() => setCurrentPage('home')}
                 className="px-6 py-2 text-gray-700 hover:text-[#006240] transition-all duration-300 text-sm tracking-widest uppercase font-light"
               >
                 Início
-              </a>
-              <a
-                href="/Users/bia/Documents/Codigos/Faculdade/3Periodo/Projeto/conexao-brennand/frontend/src/pages/Feedback"
-                className="px-6 py-2 bg-[#006240] text-[#f5f1e8] transition-all duration-300 text-sm tracking-widest uppercase font-light"
+              </button>
+              <button
+                onClick={() => setCurrentPage('cadastro')}
+                className="px-6 py-2 text-gray-700 hover:text-[#006240] transition-all duration-300 text-sm tracking-widest uppercase font-light"
               >
                 Feedback
-              </a>
-              <a
-                href="/Users/bia/Documents/Codigos/Faculdade/3Periodo/Projeto/conexao-brennand/frontend/src/pages/Admin"
+              </button>
+
+              <button
+                onClick={() => setCurrentPage('admin')}
                 className="px-6 py-2 text-gray-700 hover:text-[#006240] transition-all duration-300 text-sm tracking-widest uppercase font-light"
               >
                 Admin
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -91,96 +136,17 @@ const FeedbackPage = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <p className="text-[#006240] text-xs tracking-[0.3em] uppercase font-light mb-4">Sua Opinião Importa</p>
+              <p className="text-[#006240] text-xs tracking-[0.3em] uppercase font-light mb-4">Segundo Passo</p>
               <div className="w-16 h-px bg-[#006240] mx-auto mb-8"></div>
               <h1 className="text-5xl md:text-6xl text-gray-900 mb-6 font-light">
                 Feedback
               </h1>
               <p className="text-lg text-gray-600 font-light">
-                Compartilhe sua experiência conosco
+                Olá, {usuario?.nome}! Agora avalie sua visita
               </p>
             </div>
             
             <div className="bg-white border-2 border-gray-200 p-12 md:p-16">
-              {/* Dados Pessoais */}
-              <div className="mb-12">
-                <h2 className="text-2xl text-gray-900 mb-8 font-light">
-                  Seus Dados
-                </h2>
-                <div className="w-12 h-px bg-[#006240] mb-8"></div>
-                
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-gray-700 mb-2 text-xs tracking-wider uppercase font-light">Nome Completo *</label>
-                    <input
-                      type="text"
-                      name="nome"
-                      value={formData.nome}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 focus:border-[#006240] focus:outline-none transition-colors text-base font-light"
-                      placeholder="Digite seu nome"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-gray-700 mb-2 text-xs tracking-wider uppercase font-light">Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 focus:border-[#006240] focus:outline-none transition-colors text-base font-light"
-                      placeholder="seu@email.com"
-                    />
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-gray-700 mb-2 text-xs tracking-wider uppercase font-light">Cidade *</label>
-                      <input
-                        type="text"
-                        name="cidade"
-                        value={formData.cidade}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 focus:border-[#006240] focus:outline-none transition-colors text-base font-light"
-                        placeholder="Sua cidade"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-gray-700 mb-2 text-xs tracking-wider uppercase font-light">Data de Nascimento *</label>
-                      <input
-                        type="date"
-                        name="dataNascimento"
-                        value={formData.dataNascimento}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 focus:border-[#006240] focus:outline-none transition-colors text-base font-light"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-gray-700 mb-2 text-xs tracking-wider uppercase font-light">Sexo *</label>
-                    <select
-                      name="sexo"
-                      value={formData.sexo}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 focus:border-[#006240] focus:outline-none transition-colors text-base font-light"
-                    >
-                      <option value="">Selecione...</option>
-                      <option value="masculino">Masculino</option>
-                      <option value="feminino">Feminino</option>
-                      <option value="outro">Outro</option>
-                      <option value="nao-informar">Prefiro não informar</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
 
               {/* Avaliação da Visita */}
               <div className="mb-12">
@@ -215,9 +181,8 @@ const FeedbackPage = () => {
                   Comentários Adicionais
                 </label>
                 <textarea
-                  name="comentario"
-                  value={formData.comentario}
-                  onChange={handleInputChange}
+                  value={comentario}
+                  onChange={handleComentarioChange}
                   rows="6"
                   placeholder="Conte-nos mais sobre sua experiência no parque..."
                   className="w-full px-4 py-3 border border-gray-300 focus:border-[#006240] focus:outline-none transition-colors resize-none text-base font-light"
@@ -227,10 +192,24 @@ const FeedbackPage = () => {
               {/* Botão de Envio */}
               <button
                 onClick={handleSubmitFeedback}
-                className="w-full bg-[#006240] text-[#f5f1e8] py-4 hover:bg-[#004d32] transition-all duration-500 flex items-center justify-center gap-3 text-sm tracking-widest uppercase font-light"
+                disabled={isSubmitting}
+                className={`w-full py-4 transition-all duration-500 flex items-center justify-center gap-3 text-sm tracking-widest uppercase font-light ${
+                  isSubmitting 
+                    ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
+                    : 'bg-[#006240] text-[#f5f1e8] hover:bg-[#004d32]'
+                }`}
               >
-                <Send className="w-5 h-5" />
-                Enviar Feedback
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Enviando...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Enviar Feedback
+                  </>
+                )}
               </button>
             </div>
           </div>
