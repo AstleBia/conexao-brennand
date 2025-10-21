@@ -1,5 +1,6 @@
 CREATE TABLE feedback (
     id SERIAL PRIMARY KEY,
+    id_usuario INT REFERENCES usuario(id),
     atendimento INTEGER NOT NULL,
     acessibilidade INTEGER NOT NULL,
     infra INTEGER NOT NULL,
