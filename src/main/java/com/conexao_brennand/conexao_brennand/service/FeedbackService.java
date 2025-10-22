@@ -18,9 +18,11 @@ public class FeedbackService {
     public Feedback criarFeedback(Feedback feedback){
         return feedbackRepository.save(feedback);
     }
+
     public List<Feedback> listarFeedbacks(){
         return feedbackRepository.findAll();
     }
+
     public Feedback buscarFeedbackId(long id){
         return feedbackRepository.findById(id)
                 .orElseThrow(()-> new ResponseStatusException(
@@ -28,4 +30,8 @@ public class FeedbackService {
                         "Feedback não encontrado"
                 ));
     }
+    public List<Feedback> buscarFeedbackUsuarioId(long usuarioId){
+        return feedbackRepository.findByUsuarioId(usuarioId);
+    }
+
 }

@@ -13,6 +13,9 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(name = "usuario_id")
+    private Long usuarioId;
+
     @Column(nullable = false)
     private int atendimento;
 
@@ -31,8 +34,6 @@ public class Feedback {
     @Column(length = 250)
     private String comentario;
 
-    @Column(name = "usuario_id")
-    private Long usuarioId;
 
     public long getId() {
         return id;

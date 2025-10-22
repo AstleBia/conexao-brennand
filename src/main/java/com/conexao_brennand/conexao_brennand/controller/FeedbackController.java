@@ -28,4 +28,9 @@ class FeedbackController {
     public Feedback criar(@RequestBody Feedback feedback){
         return feedbackService.criarFeedback(feedback);
     }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public List<Feedback> buscarPorUsuario(@PathVariable Long usuarioId){
+        return feedbackService.buscarFeedbackUsuarioId(usuarioId);
+    }
 }
