@@ -11,20 +11,24 @@ import java.util.List;
 @Service
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
-    public UsuarioService(UsuarioRepository usuarioRepository){
+
+    public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-    public List<Usuario> listarUsuarios(){
+
+    public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
     }
-    public Usuario listaUsuarioId(long id){
+
+    public Usuario listaUsuarioId(long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(()-> new ResponseStatusException(
+                .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Usuario nao encotrado"
-                ));
+                        "Usuario nao encotrado"));
     }
-    public Usuario criarUsuario(Usuario usuario){
+
+    public Usuario criarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
+
 }

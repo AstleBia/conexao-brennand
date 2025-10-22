@@ -2,6 +2,9 @@ package com.conexao_brennand.conexao_brennand.controller;
 
 import com.conexao_brennand.conexao_brennand.model.Usuario;
 import com.conexao_brennand.conexao_brennand.service.UsuarioService;
+
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,23 +13,37 @@ import java.util.List;
 @RequestMapping("/usuarios")
 public class UsuarioController {
     private final UsuarioService usuarioService;
-    public UsuarioController(UsuarioService usuarioService){
+
+    public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
     @GetMapping
-    public List<Usuario> listar(){
+    public List<Usuario> listar() {
         return usuarioService.listarUsuarios();
     }
 
     @GetMapping("/{usuarioId}")
-    public Usuario buscarPorId(@PathVariable long usuarioId){
+    public Usuario buscarPorId(@PathVariable long usuarioId) {
         return usuarioService.listaUsuarioId(usuarioId);
     }
 
     @PostMapping
-    public Usuario criar(@RequestBody Usuario usuario){
+    public Usuario criar(@RequestBody Usuario usuario) {
         return usuarioService.criarUsuario(usuario);
+
+    }
+
+    // Feito por Vinicius
+    @PostMapping
+    public ResponseEntity<?> criarUsuario(@RequestBody Usuario usuario) {
+        try {
+            Usuario usuarioSalvo = usuarioService.salvarOuAtualizar(usuario);
+            return ResponseEntity.ok(usuarioSalvo);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest()
+                    .body("Já existe um usuário com este email");
+        }
     }
 
 }
