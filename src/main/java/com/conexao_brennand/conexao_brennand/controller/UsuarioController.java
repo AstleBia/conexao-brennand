@@ -31,19 +31,6 @@ public class UsuarioController {
     @PostMapping
     public Usuario criar(@RequestBody Usuario usuario) {
         return usuarioService.criarUsuario(usuario);
-
-    }
-
-    // Feito por Vinicius
-    @PostMapping
-    public ResponseEntity<?> criarUsuario(@RequestBody Usuario usuario) {
-        try {
-            Usuario usuarioSalvo = usuarioService.salvarOuAtualizar(usuario);
-            return ResponseEntity.ok(usuarioSalvo);
-        } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.badRequest()
-                    .body("Já existe um usuário com este email");
-        }
     }
 
 }

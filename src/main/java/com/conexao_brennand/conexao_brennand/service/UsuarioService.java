@@ -28,7 +28,8 @@ public class UsuarioService {
     }
 
     public Usuario criarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        return usuarioRepository.findByEmail(usuario.getEmail())
+                .orElseGet(() -> usuarioRepository.save(usuario));
     }
 
 }
