@@ -44,6 +44,35 @@ ___
 - [Screencast](https://youtu.be/XOh8VCBBnJ0)
 </details>
 
+<details>
+<summary>Entrega 03</summary>
+
+![Issue tracker](./imgs/IssueTrackerEntrega3.png)
+![Issue tracker](./imgs/IssueTrackerOpenEntrega3.png)
+
+- [Screencast]()
+
+</details>
+
+___
+
+### Como Rodar o Projeto?
+
+Clone o repositório \
+`git clone https://github.com/AstleBia/conexao-brennand.git`
+
+Crie um arquivo .env e configure:
+```
+POSTGRES_USER={seuUser}
+POSTGRES_PASSWORD={suaSenha}
+POSTGRES_DB={nomeBanco}
+```
+Rode o projeto no docker:
+```
+docker compose up -d
+```
+
+
 ___
 
 ### Stack
