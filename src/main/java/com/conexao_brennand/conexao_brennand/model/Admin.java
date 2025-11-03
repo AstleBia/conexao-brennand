@@ -19,10 +19,10 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 120)
+    @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = false, length = 160)
+    @Column(nullable = false, length = 100)
     private String email;
 
     @Column(name = "senha_hash", nullable = false, length = 100)
