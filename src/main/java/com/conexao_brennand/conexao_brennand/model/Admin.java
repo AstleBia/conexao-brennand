@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "administrador")
+@Table(name = "admins")
 @NoArgsConstructor
 @AllArgsConstructor
 

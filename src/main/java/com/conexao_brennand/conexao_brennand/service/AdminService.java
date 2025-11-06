@@ -4,8 +4,11 @@ import com.conexao_brennand.conexao_brennand.dto.AdminDTO;
 import com.conexao_brennand.conexao_brennand.dto.AdminLogin;
 import com.conexao_brennand.conexao_brennand.model.Admin;
 import com.conexao_brennand.conexao_brennand.repository.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +17,10 @@ import java.util.stream.Collectors;
 @Service
 public class AdminService {
     private final AdminRepository adminRepository;
+
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
     public AdminService(AdminRepository adminRepository){
         this.adminRepository = adminRepository;
     }
@@ -28,18 +34,22 @@ public class AdminService {
 
     public boolean login(AdminLogin adminLogin){
         Optional<Admin> admin = adminRepository.findByEmail(adminLogin.getEmail());
-        if (admin.isPresent()){
-            return passwordEncoder.matches(
-                    adminLogin.getSenha(),
-                    admin.get().getSenhaHash()
-            );
+        if (!admin.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Email não encontrado");
         }
-        return false;
+        boolean sucesso = passwordEncoder.matches(
+                adminLogin.getSenha(),
+                admin.get().getSenhaHash()
+        );
+        if (!sucesso){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha incorreta");
+        }
+        return true;
     }
 
     public Admin cadastro(Admin admin){
         if (adminExiste(admin)){
-            throw new RuntimeException("Admin já existe!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já cadastrado");
         }
         String senhaHash = passwordEncoder.encode(admin.getSenhaHash());
         admin.setSenhaHash(senhaHash);

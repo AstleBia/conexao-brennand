@@ -16,7 +16,7 @@ CREATE TABLE feedback (
     comentario VARCHAR(250)
 );
 
-CREATE TABLE administrador (
+CREATE TABLE admins (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100),
     email VARCHAR(100),
