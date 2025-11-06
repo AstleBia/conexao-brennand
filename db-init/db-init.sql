@@ -20,6 +20,6 @@ CREATE TABLE administrador (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100),
     email VARCHAR(100),
-    senha_hash VARCHAR(100)
+    senhaHash VARCHAR(100)
 );
 
