@@ -21,13 +21,13 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(length = 50)
+    @Column(name = "nome",length = 50)
     private String nome;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "email",nullable = false, length = 30)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "senha_hash",nullable = false)
     private String senhaHash;
 
     public long getId(){
