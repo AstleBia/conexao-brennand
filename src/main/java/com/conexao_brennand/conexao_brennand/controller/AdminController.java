@@ -23,8 +23,11 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public boolean login(@RequestBody AdminLogin adminLogin){
-        return adminService.login(adminLogin);
+    public String login(@RequestBody AdminLogin adminLogin){
+        if (adminService.login(adminLogin)){
+            return "Login feito com sucesso";
+        }
+        return null;
     }
 
     @GetMapping
