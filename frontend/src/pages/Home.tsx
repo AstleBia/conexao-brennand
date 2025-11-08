@@ -7,10 +7,16 @@ interface HomePageProps {
 
 const HomePage = ({ setCurrentPage }: HomePageProps) => {
   const events = [
-    { title: 'Exposição de Cerâmica Contemporânea', date: '15 de Outubro', time: '14h às 18h' },
-    { title: 'Visita Guiada com Curador', date: '20 de Outubro', time: '10h às 12h' },
-    { title: 'Workshop: Arte em Cerâmica', date: '28 de Outubro', time: '15h às 17h' }
+    { title: 'Exposição de Cerâmica Contemporânea', date: '15 de Outubro', time: '14h às 18h', img: '/images/Expo_Ceramica.jpg' },
+    { title: 'Visita Guiada com Curador', date: '20 de Outubro', time: '10h às 12h', img: '/images/Visita_Guiada.jpg' },
+    { title: 'Workshop: Arte em Cerâmica', date: '28 de Outubro', time: '15h às 17h', img: '/images/Workshop_Ceramica.jpg' }
   ];
+
+  const lat = -8.063799068668168;
+  const lng = -34.86901076112854;
+  const zoom = 16;
+  const mapsEmbedSrc = `https://www.google.com/maps?q=${lat},${lng}&z=${zoom}&output=embed`;
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
 
   return (
       <div className="min-h-screen bg-[#f5f1e8]">
@@ -101,10 +107,12 @@ const HomePage = ({ setCurrentPage }: HomePageProps) => {
               </div>
 
               <div className="relative">
-                <div className="aspect-square bg-gradient-to-br from-[#006240] to-[#004d32] flex items-center justify-center">
-                  <p className="text-[#f5f1e8] text-xl font-light tracking-wide">
-                    Foto Principal
-                  </p>
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src="/images/Parque_Das_Esculturas.jpg"
+                    alt="Parque das Esculturas Francisco Brennand"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-[#006240] -z-10"></div>
               </div>
@@ -129,8 +137,12 @@ const HomePage = ({ setCurrentPage }: HomePageProps) => {
                       key={index}
                       className="group border-2 border-gray-200 hover:border-[#006240] transition-all duration-500 bg-white"
                   >
-                    <div className="aspect-video bg-gradient-to-br from-[#006240] to-[#004d32] flex items-center justify-center">
-                      <Calendar className="w-16 h-16 text-[#f5f1e8] opacity-40" />
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        src={event.img}
+                        alt={event.title}
+                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                      />
                     </div>
                     <div className="p-8">
                       <div className="flex items-center gap-2 text-[#006240] mb-4">
@@ -185,8 +197,16 @@ const HomePage = ({ setCurrentPage }: HomePageProps) => {
                   <MapPin className="w-10 h-10 mb-3 text-[#006240]" />
                   <h3 className="text-xl text-gray-900 font-light tracking-wide">Localização</h3>
                 </div>
-                <div className="aspect-video bg-gray-100 flex items-center justify-center text-gray-500 font-light text-sm">
-                  [Embed Google Maps]
+                <div className="aspect-video">
+                  <iframe
+                    title="Localização — Parque das Esculturas Francisco Brennand"
+                    src={mapsEmbedSrc}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
                 </div>
                 <div className="p-6">
                   <p className="text-sm leading-relaxed text-gray-700 font-light">
@@ -194,6 +214,14 @@ const HomePage = ({ setCurrentPage }: HomePageProps) => {
                     Recife Antigo<br />
                     Recife — PE
                   </p>
+                  <a
+                    href={mapsLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-block mt-3 text-[#006240] underline text-sm"
+                  >
+                    Abrir no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
