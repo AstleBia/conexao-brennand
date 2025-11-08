@@ -7,8 +7,8 @@ interface AdminPageProps {
 
 const AdminPage = ({ setCurrentPage }: AdminPageProps) => {
   const [loginData, setLoginData] = useState({
-    username: '',
-    password: ''
+    email: '',
+    senha: ''
   });
 
   const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,9 +16,31 @@ const AdminPage = ({ setCurrentPage }: AdminPageProps) => {
     setLoginData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleLogin = () => {
-    console.log('Login:', loginData);
-    alert('Funcionalidade de login será implementada no backend');
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: loginData.email,
+          senha: loginData.senha
+        })
+      });
+
+      if (response.ok) {
+        const message = await response.text();
+        alert(message);
+        // Aqui você pode redirecionar para uma página de dashboard admin
+      } else {
+        const errorText = await response.text();
+        alert(`Erro no login: ${errorText}`);
+      }
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      alert('Erro de conexão com o servidor');
+    }
   };
 
   return (
@@ -75,16 +97,16 @@ const AdminPage = ({ setCurrentPage }: AdminPageProps) => {
               <div className="space-y-6">
                 <div>
                   <label className="block text-gray-700 mb-2 text-xs tracking-wider uppercase font-light">
-                    Usuário
+                    Email
                   </label>
                   <input
-                      type="text"
-                      name="username"
-                      value={loginData.username}
+                      type="email"
+                      name="email"
+                      value={loginData.email}
                       onChange={handleLoginChange}
                       required
                       className="w-full px-4 py-3 border border-gray-300 focus:border-gray-900 focus:outline-none transition-colors text-base font-light"
-                      placeholder="Digite seu usuário"
+                      placeholder="Digite seu email"
                   />
                 </div>
 
@@ -94,8 +116,8 @@ const AdminPage = ({ setCurrentPage }: AdminPageProps) => {
                   </label>
                   <input
                       type="password"
-                      name="password"
-                      value={loginData.password}
+                      name="senha"
+                      value={loginData.senha}
                       onChange={handleLoginChange}
                       required
                       className="w-full px-4 py-3 border border-gray-300 focus:border-gray-900 focus:outline-none transition-colors text-base font-light"
