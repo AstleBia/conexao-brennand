@@ -18,7 +18,22 @@ const CadastroPage = ({ setCurrentPage, onCadastroComplete }: CadastroPageProps)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    if (name === 'dataNascimento') {
+      // Aplicar máscara dd/MM/yyyy
+      let formattedValue = value.replace(/\D/g, '');
+      
+      if (formattedValue.length >= 2) {
+        formattedValue = formattedValue.slice(0, 2) + '/' + formattedValue.slice(2);
+      }
+      if (formattedValue.length >= 5) {
+        formattedValue = formattedValue.slice(0, 5) + '/' + formattedValue.slice(5, 9);
+      }
+      
+      setFormData(prev => ({ ...prev, [name]: formattedValue }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmitCadastro = async (e) => {
@@ -32,6 +47,17 @@ const CadastroPage = ({ setCurrentPage, onCadastroComplete }: CadastroPageProps)
       return;
     }
 
+    // Validar formato da data dd/MM/yyyy
+    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+    if (!dateRegex.test(formData.dataNascimento)) {
+      alert('Por favor, insira a data no formato dd/MM/yyyy.');
+      return;
+    }
+
+    // Converter data para formato yyyy-MM-dd para enviar à API
+    const [day, month, year] = formData.dataNascimento.split('/');
+    const dataFormatada = `${year}-${month}-${day}`;
+
     setIsSubmitting(true);
 
     try {
@@ -43,7 +69,9 @@ const CadastroPage = ({ setCurrentPage, onCadastroComplete }: CadastroPageProps)
         body: JSON.stringify({
           nome: formData.nome,
           email: formData.email,
-          cidade: formData.cidade
+          cidade: formData.cidade,
+          dataNascimento: dataFormatada,
+          sexo: formData.sexo
         })
       });
 
@@ -161,11 +189,13 @@ const CadastroPage = ({ setCurrentPage, onCadastroComplete }: CadastroPageProps)
                     <div>
                       <label className="block text-gray-700 mb-2 text-xs tracking-wider uppercase font-light">Data de Nascimento *</label>
                       <input
-                        type="date"
+                        type="text"
                         name="dataNascimento"
                         value={formData.dataNascimento}
                         onChange={handleInputChange}
                         required
+                        maxLength="10"
+                        placeholder="dd/MM/yyyy"
                         className="w-full px-4 py-3 border border-gray-300 focus:border-[#006240] focus:outline-none transition-colors text-base font-light"
                       />
                     </div>

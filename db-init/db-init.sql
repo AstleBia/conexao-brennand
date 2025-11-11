@@ -2,7 +2,9 @@ CREATE TABLE usuario(
     id SERIAL PRIMARY KEY,
     nome VARCHAR(50),
     email VARCHAR(30),
-    cidade VARCHAR(30)
+    cidade VARCHAR(30),
+    dataNascimento DATE,
+    sexo VARCHAR(30)
 );
 
 CREATE TABLE feedback (
