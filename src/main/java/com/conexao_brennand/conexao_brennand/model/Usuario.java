@@ -1,6 +1,7 @@
 package com.conexao_brennand.conexao_brennand.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.conexao_brennand.conexao_brennand.config.LocalDateDeserializer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,7 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "usuario")
@@ -30,8 +31,7 @@ public class Usuario {
     @Column(length = 30)
     private String cidade;
 
-    @JsonFormat(pattern="yyyy/MM/dd")
-    private LocalDate dataNascimento;
+    private String dataNascimento;
 
     @Column(length = 30)
     private String sexo;
@@ -51,10 +51,10 @@ public class Usuario {
     public String getCidade() { return cidade;}
     public void setCidade(String cidade) { this.cidade = cidade; }
 
-    public LocalDate getNascimento(){
+    public String getDataNascimento(){
         return this.dataNascimento;
     }
-    public void setNascimento(LocalDate dataNascimento){
+    public void setDataNascimento(String dataNascimento){
         this.dataNascimento = dataNascimento;
     }
 
