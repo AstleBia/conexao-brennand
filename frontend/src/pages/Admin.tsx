@@ -3,9 +3,10 @@ import { User } from 'lucide-react';
 
 interface AdminPageProps {
   setCurrentPage: (page: string) => void;
+  onLoginSuccess: () => void;
 }
 
-const AdminPage = ({ setCurrentPage }: AdminPageProps) => {
+const AdminPage = ({ setCurrentPage, onLoginSuccess }: AdminPageProps) => {
   const [loginData, setLoginData] = useState({
     email: '',
     senha: ''
@@ -30,9 +31,7 @@ const AdminPage = ({ setCurrentPage }: AdminPageProps) => {
       });
 
       if (response.ok) {
-        const message = await response.text();
-        alert(message);
-        // Aqui você pode redirecionar para uma página de dashboard admin
+        onLoginSuccess(); // Redireciona para o dashboard admin
       } else {
         const errorText = await response.text();
         alert(`Erro no login: ${errorText}`);

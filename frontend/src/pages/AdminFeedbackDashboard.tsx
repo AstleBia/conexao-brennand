@@ -13,7 +13,12 @@ interface FeedbackDetalhado {
     comentario: string;
 }
 
-const AdminFeedbackDashboard = ({ setCurrentPage }) => {
+interface AdminFeedbackDashboardProps {
+    setCurrentPage: (page: string) => void;
+    onLogout: () => void;
+}
+
+const AdminFeedbackDashboard = ({ setCurrentPage, onLogout }: AdminFeedbackDashboardProps) => {
     const [data, setData] = useState<FeedbackDetalhado[]>([]);
     const [mediaGeral, setMediaGeral] = useState<number | null>(null);
 
@@ -50,29 +55,19 @@ const AdminFeedbackDashboard = ({ setCurrentPage }) => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
-
-            {/* Header igual às outras páginas */}
+            {/* Header */}
             <nav className="bg-black bg-opacity-50 border-b border-gray-700">
                 <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-                    <button
-                        onClick={() => setCurrentPage("home")}
-                        className="text-white text-xl md:text-2xl font-light tracking-wider hover:text-gray-300 transition-colors"
-                    >
-                        CONEXÃO BRENNAND
-                    </button>
+                    <div className="text-white text-xl md:text-2xl font-light tracking-wider">
+                        CONEXÃO BRENNAND — ÁREA ADMINISTRATIVA
+                    </div>
 
                     <div className="flex gap-2">
                         <button
-                            onClick={() => setCurrentPage("home")}
-                            className="px-4 py-2 text-gray-400 hover:text-white transition-all text-sm tracking-widest uppercase"
+                            onClick={onLogout}
+                            className="px-4 py-2 bg-red-600 bg-opacity-80 hover:bg-red-700 text-white transition-all text-sm tracking-widest uppercase"
                         >
-                            Início
-                        </button>
-                        <button
-                            onClick={() => setCurrentPage("admin")}
-                            className="px-4 py-2 bg-white bg-opacity-10 text-white transition-all text-sm tracking-widest uppercase"
-                        >
-                            Admin
+                            Sair
                         </button>
                     </div>
                 </div>
