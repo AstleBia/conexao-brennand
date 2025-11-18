@@ -1,0 +1,24 @@
+/* ...existing code... */
+
+.checkbox-group {
+  margin: 15px 0;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.checkbox-group span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+

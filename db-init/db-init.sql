@@ -4,7 +4,8 @@ CREATE TABLE usuario(
     email VARCHAR(30),
     cidade VARCHAR(30),
     dataNascimento DATE,
-    sexo VARCHAR(30)
+    sexo VARCHAR(30),
+    receberEmail BOOLEAN
 );
 
 CREATE TABLE feedback (

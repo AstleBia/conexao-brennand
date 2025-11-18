@@ -12,7 +12,8 @@ const CadastroPage = ({ setCurrentPage, onCadastroComplete }: CadastroPageProps)
     email: '',
     cidade: '',
     dataNascimento: '',
-    sexo: ''
+    sexo: '',
+    receberEmail: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -71,7 +72,8 @@ const CadastroPage = ({ setCurrentPage, onCadastroComplete }: CadastroPageProps)
           email: formData.email,
           cidade: formData.cidade,
           dataNascimento: dataFormatada,
-          sexo: formData.sexo
+          sexo: formData.sexo,
+          receberEmail: formData.receberEmail
         })
       });
 
@@ -216,6 +218,21 @@ const CadastroPage = ({ setCurrentPage, onCadastroComplete }: CadastroPageProps)
                       <option value="outro">Outro</option>
                       <option value="nao-informar">Prefiro não informar</option>
                     </select>
+                  </div>
+
+                  <div className="mt-6">
+                    <label className="flex items-center space-x-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        name="receberEmail"
+                        checked={formData.receberEmail}
+                        onChange={(e) => setFormData(prev => ({ ...prev, receberEmail: e.target.checked }))}
+                        className="w-4 h-4 text-[#006240] border-gray-300 rounded focus:ring-[#006240] focus:ring-2"
+                      />
+                      <span className="text-gray-700 text-sm font-light">
+                        Desejo receber atualizações por email sobre novos eventos no parque
+                      </span>
+                    </label>
                   </div>
                 </div>
 
