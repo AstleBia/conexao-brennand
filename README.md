@@ -54,6 +54,15 @@ ___
 
 </details>
 
+<details>
+<summary>Entrega 04</summary>
+
+![Issue Tracker](./imgs/IssueTrackerEntrega4.png)
+
+- [Screencast]()
+
+</details>
+
 ___
 
 ### Como Rodar o Projeto?
