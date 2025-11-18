@@ -1,6 +1,7 @@
 package com.conexao_brennand.conexao_brennand.controller;
 
 import com.conexao_brennand.conexao_brennand.dto.AdminFeedbackResponse;
+import com.conexao_brennand.conexao_brennand.dto.CategoriaRankingDTO;
 import com.conexao_brennand.conexao_brennand.service.FeedbackService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,5 +32,10 @@ public class AdminFeedbackController {
         if (maxAge == null) maxAge = 120;
 
         return feedbackService.listarFeedbacksDetalhados(gender, city, minAge, maxAge);
+    }
+
+    @GetMapping("/ranking")
+    public java.util.List<CategoriaRankingDTO> calcularRankingCategorias() {
+        return feedbackService.calcularRankingCategorias();
     }
 }

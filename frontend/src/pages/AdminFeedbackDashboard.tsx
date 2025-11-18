@@ -13,6 +13,13 @@ interface FeedbackDetalhado {
     comentario: string;
 }
 
+interface CategoriaRanking {
+    categoria: string;
+    media: number;
+    quantidade: number;
+    posicao: number;
+}
+
 interface AdminFeedbackDashboardProps {
     setCurrentPage: (page: string) => void;
     onLogout: () => void;
@@ -21,6 +28,7 @@ interface AdminFeedbackDashboardProps {
 const AdminFeedbackDashboard = ({ setCurrentPage, onLogout }: AdminFeedbackDashboardProps) => {
     const [data, setData] = useState<FeedbackDetalhado[]>([]);
     const [mediaGeral, setMediaGeral] = useState<number | null>(null);
+    const [ranking, setRanking] = useState<CategoriaRanking[]>([]);
 
     // Filtros
     const [gender, setGender] = useState("");
@@ -49,8 +57,19 @@ const AdminFeedbackDashboard = ({ setCurrentPage, onLogout }: AdminFeedbackDashb
         }
     };
 
+    const loadRanking = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/admin/feedbacks/ranking");
+            const data = await response.json();
+            setRanking(data);
+        } catch (err) {
+            console.error("Erro ao buscar ranking:", err);
+        }
+    };
+
     useEffect(() => {
         loadData();
+        loadRanking();
     }, []);
 
     return (
@@ -135,6 +154,72 @@ const AdminFeedbackDashboard = ({ setCurrentPage, onLogout }: AdminFeedbackDashb
                     <p className="text-5xl font-light mt-3 text-amber-400">
                         {mediaGeral ? mediaGeral.toFixed(2) : "—"}
                     </p>
+                </div>
+
+                {/* Ranking de Categorias */}
+                <div className="bg-white bg-opacity-10 p-6 rounded-xl border border-gray-700 mb-10">
+                    <h2 className="text-2xl font-light mb-6 text-center">Ranking de Categorias</h2>
+                    <p className="text-center text-gray-400 mb-6">Da pior avaliação para a melhor</p>
+                    
+                    <div className="space-y-4">
+                        {ranking.length === 0 ? (
+                            <div className="text-center text-gray-400 py-8">
+                                Nenhum dado de ranking disponível
+                            </div>
+                        ) : (
+                            ranking.map((item) => {
+                                // Definir cores baseadas na posição
+                                const getBarColor = (posicao: number) => {
+                                    if (posicao === 1) return 'bg-red-600'; // Pior - vermelho
+                                    if (posicao === 2) return 'bg-orange-600'; 
+                                    if (posicao === 3) return 'bg-yellow-600';
+                                    if (posicao === 4) return 'bg-blue-600';
+                                    return 'bg-green-600'; // Melhor - verde
+                                };
+
+                                const getTextColor = (posicao: number) => {
+                                    if (posicao === 1) return 'text-red-400';
+                                    if (posicao === 2) return 'text-orange-400';
+                                    if (posicao === 3) return 'text-yellow-400';
+                                    if (posicao === 4) return 'text-blue-400';
+                                    return 'text-green-400';
+                                };
+
+                                const getCategoryDisplayName = (categoria: string) => {
+                                    const names: { [key: string]: string } = {
+                                        'atendimento': 'Atendimento',
+                                        'acessibilidade': 'Acessibilidade',
+                                        'infra': 'Infraestrutura',
+                                        'seguranca': 'Segurança',
+                                        'limpeza': 'Limpeza'
+                                    };
+                                    return names[categoria] || categoria;
+                                };
+
+                                return (
+                                    <div key={item.categoria} className="flex items-center gap-4">
+                                        <div className={`w-8 text-center font-bold ${getTextColor(item.posicao)}`}>
+                                            #{item.posicao}
+                                        </div>
+                                        <div className="flex-1">
+                                            <div className="flex justify-between items-center mb-1">
+                                                <span className="font-medium">{getCategoryDisplayName(item.categoria)}</span>
+                                                <span className="text-sm text-gray-400">
+                                                    {item.media.toFixed(2)} ({item.quantidade} avaliações)
+                                                </span>
+                                            </div>
+                                            <div className="w-full bg-gray-700 rounded-full h-3">
+                                                <div 
+                                                    className={`${getBarColor(item.posicao)} h-3 rounded-full transition-all duration-500`}
+                                                    style={{ width: `${(item.media / 5) * 100}%` }}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        )}
+                    </div>
                 </div>
 
                 {/* Tabela */}
