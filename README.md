@@ -60,6 +60,7 @@ ___
 ![Issue Tracker](./imgs/IssueTrackerEntrega4.png)
 
 - [Screencast](https://youtu.be/IBqmEr4-Gss)
+- [Screencast-Testes](https://youtu.be/aoTVppfyjV4)
 
 </details>
 
